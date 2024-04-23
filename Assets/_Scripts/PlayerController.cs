@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     //Player Controller set up - Joshua
     //Player Variables
     Rigidbody2D rb;
-    public float moveSpeed = 5.0f;
+    [SerializeField] float moveSpeed = 5.0f;
     private Vector2 moveInput;
 
     // Start is called before the first frame update
