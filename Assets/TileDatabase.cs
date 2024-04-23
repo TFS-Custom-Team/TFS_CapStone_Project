@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [CreateAssetMenu]
-public class TileData : ScriptableObject
+public class TileDatabase : ScriptableObject
 {
 	public UDictionary<TileBase, int> tiles;
 
