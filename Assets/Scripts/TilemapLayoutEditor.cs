@@ -80,6 +80,10 @@ public class TilemapLayoutEditor : MonoBehaviour
 		}
 	}
 
+	public void clearTiles() {
+		tilemap.ClearAllTiles();
+	}
+
 	public void LoadlevelwithEditorTiles() { //Load layout with all tiles that are excluive to the editor. ONLY AVAILABLE IN EDITOR.
 		LevelData data = JsonUtility.FromJson<LevelData>(layout.text);
 		tilemap.ClearAllTiles();
@@ -253,6 +257,9 @@ public class SaveloadLayout : Editor {
 		}
 		if (GUILayout.Button("Save Layout")) {
 			myScript.Savelevel();
+		}
+		if (GUILayout.Button("Clear All Tiles")) {
+			myScript.clearTiles();
 		}
 	}
 }
