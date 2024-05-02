@@ -11,6 +11,7 @@ public class Projectile : MonoBehaviour
     Vector2 dir;
     float speed = 1;
     float size = 1;
+    float laserWidth = 0.4f;
     //Tracks reference to the enemy that spawned this projectile
     GameObject enemy;
     //Tracks the color of the projectile
@@ -158,8 +159,8 @@ public class Projectile : MonoBehaviour
 
         //sets parameters of laser to make it visible
         lr.SetPositions(points);
-        lr.startWidth = 0.5f;
-        lr.endWidth = 0.5f;
+        lr.startWidth = laserWidth;
+        lr.endWidth = laserWidth;
 
         //Disables components not to be used anymore
         sr.enabled = false;
