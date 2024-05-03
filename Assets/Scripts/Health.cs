@@ -11,6 +11,8 @@ public class Health : MonoBehaviour
     public bool noHealthCap = false;
     public bool hitInvulnerability = false;
     // Start is called before the first frame update
+    // Nicholas H
+    // I forgot when I wrote this
     void Start()
     {
         if (!noHealthCap)

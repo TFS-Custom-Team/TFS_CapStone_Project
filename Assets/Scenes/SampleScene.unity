@@ -458,6 +458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+ enemy-shooting
 --- !u!1001 &5784307459449085186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -519,6 +520,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74686779c5149104d90ef0c3c7622255, type: 3}
+main
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
