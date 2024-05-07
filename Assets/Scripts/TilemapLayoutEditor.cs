@@ -13,7 +13,14 @@ using UnityEditor;
 using UnityEngine.UIElements;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine.UI;
-
+/* ----------------------------------------------------------------------------------------------------------------------
+ * Layout Loader and Editor
+ * Created by: DrRetro
+ * 
+ * This script is the Editor and Loader for our game. It has two main fuctions, to create layouts and load them in-game.
+ * To be honest, the only function that you really need to know is Loadlevel.
+ * ----------------------------------------------------------------------------------------------------------------------
+ */
 public class TilemapLayoutEditor : MonoBehaviour
 {
 	[Tooltip("Set to the current tilemap.")]
@@ -61,7 +68,7 @@ public class TilemapLayoutEditor : MonoBehaviour
 		try {
 			dict = tileDatabase.getOppositeDictionary();
 		}
-		catch (Exception e) {
+		catch (Exception e) { // Throws a custom error that says that the TileDatabase is missing.
 			throw new MissingTileDatabase();
 		}
 		for (int i = 0; i < data.poses.Count; i++) {
@@ -106,8 +113,7 @@ public class TilemapLayoutEditor : MonoBehaviour
 
 		LevelData levelData = new LevelData();
 
-		for (int x = bounds.min.x; x < bounds.max.x; x++)
-		{
+		for (int x = bounds.min.x; x < bounds.max.x; x++) { // For getting all tiles in the tilemap.
 			for (int y = bounds.min.y; y < bounds.max.y; y++)
 			{
 				TileBase temp = tilemap.GetTile(new Vector3Int(x, y, 0));
@@ -128,10 +134,10 @@ public class TilemapLayoutEditor : MonoBehaviour
 	public void Savelevel() { //ONLY AVAILABLE IN EDITOR.
         BoundsInt bounds = tilemap.cellBounds; //How big is this level?
 
-        LevelData levelData = new LevelData();
+        LevelData levelData = new LevelData(); 
         
-        for(int x = bounds.min.x; x < bounds.max.x; x++) {
-            for(int y = bounds.min.y; y < bounds.max.y; y++) {
+        for(int x = bounds.min.x; x < bounds.max.x; x++) {  //For getting all tiles in the tilemap.
+			for (int y = bounds.min.y; y < bounds.max.y; y++) {
                 TileBase temp = tilemap.GetTile(new Vector3Int(x, y, 0));
 
                 if (temp != null) {
@@ -159,8 +165,7 @@ public class TilemapLayoutEditor : MonoBehaviour
 
 		LevelData levelData = new LevelData();
 
-		for (int x = bounds.min.x; x < bounds.max.x; x++)
-		{
+		for (int x = bounds.min.x; x < bounds.max.x; x++) {//For getting all tiles in the tilemap.
 			for (int y = bounds.min.y; y < bounds.max.y; y++)
 			{
 				TileBase temp = tilemap.GetTile(new Vector3Int(x, y, 0));
