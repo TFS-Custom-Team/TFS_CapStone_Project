@@ -21,6 +21,8 @@ public class TilemapLayoutEditor : MonoBehaviour
     [Tooltip("Replacement tiles for random generation. Requires replacement called \"floor\" and \"wall\".")]
     public UDictionary<string, TileBase> replacements; //For numbered tiles. Easy way to change the TileBase for temporary/editor only tiles.
 	public TextAsset layout; //Set this with the layout you want to load in when possible.
+	public GameObject Player;
+	private Vector3 player_spawn_pos;
 	// Start is called before the first frame update
 	void Start() {
 
@@ -44,9 +46,14 @@ public class TilemapLayoutEditor : MonoBehaviour
 			else if ((data.tiles[i] > 0 && data.tiles[i] <= 6)) {
 				tilemap.SetTile(data.poses[i], replacements["floor"]);
 			}
+			else if (data.tiles[i] == 7) {
+				player_spawn_pos = data.poses[i];
+				tilemap.SetTile(data.poses[i], replacements["floor"]);
+			}
 			else {
 				tilemap.SetTile(data.poses[i], dict[data.tiles[i]]);
 			}
+			playerSpawn();
 		}
 	}
 
@@ -71,13 +78,21 @@ public class TilemapLayoutEditor : MonoBehaviour
 			{
 				tilemap.SetTile(data.poses[i], replacements["floor"]);
 			}
+			else if (data.tiles[i] == 7) {
+				player_spawn_pos = data.poses[i];
+				tilemap.SetTile(data.poses[i], replacements["floor"]);
+			}
 			else
 			{
 				tilemap.SetTile(data.poses[i], dict[data.tiles[i]]);
 			}
 		}
+		playerSpawn();
 	}
 
+	public void playerSpawn() {
+		Player.transform.position = transform.position;
+	}
 	public void clearTiles() {
 		tilemap.ClearAllTiles();
 	}
@@ -207,7 +222,7 @@ public class LayoutSaveName : EditorWindow //Do not worry about this code. There
 		Debug.Log(editor);
 		Debug.Log(name_of_file);
 		if (name_of_file.Length > 0) {
-			editor.Savelevel(Application.dataPath + "/LevelJSON/" + name_of_file + ".json");
+			editor.Savelevel(Application.dataPath + "/_LevelJSON/" + name_of_file + ".json");
 			Close();
 		}
 	}
