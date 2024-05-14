@@ -35,7 +35,7 @@ public class ColorSwitching : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer sr;
     PlayerController player;
-    Colors currColor = Colors.Red;
+    public Colors currColor = Colors.Red;
     int maxListSize = 3;
 
     List<Direction> inputs;

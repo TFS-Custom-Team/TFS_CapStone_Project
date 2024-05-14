@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static ColorSwitching;
@@ -170,6 +171,8 @@ public class Projectile : MonoBehaviour
 
         //Waits for laser then destroys projectile
         StartCoroutine(DestroyAfterlaser());
+
+        enemy.GetComponent<Health>().damageTaken = 1;
     }
 
     private IEnumerator DestroyAfterlaser()
@@ -188,8 +191,15 @@ public class Projectile : MonoBehaviour
         }
         else if (collision.transform.CompareTag("Player"))
         {
-
-            Bounce();
+            GameObject player = collision.gameObject;
+            if (player.GetComponent<ColorSwitching>().currColor == color)
+            {
+                Bounce();
+            }
+            else
+            {
+                player.GetComponent<Health>().damageTaken = 1;
+            }
         }
     }
 
