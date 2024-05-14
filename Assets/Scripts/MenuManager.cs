@@ -5,11 +5,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
 public class MenuManager : MonoBehaviour
 {
-    static MenuManager instance = null;
-    public static MenuManager Instance => instance;
-
+    
+    // If the canavsParent in LevelScene is made the Prefab instead of the UIcanvas, all this funcionality 
+    // should move seemlessly to other levels that are made, if you need help implementing that
+    // ping Makenzie on discord
 
     bool TestMode = false;
 
@@ -34,29 +36,23 @@ public class MenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (instance)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        
 
-        instance = this;
-
-        DontDestroyOnLoad(gameObject);
+       
 
         if (quitButton)
             quitButton.onClick.AddListener(Quit);
 
         if (playButton)
-            playButton.onClick.AddListener(() => Instance.ChangeScene(1));
+            playButton.onClick.AddListener(() => ChangeScene(1));
 
         if (pauseButton)
         {
-            pauseButton.onClick.AddListener(() => Instance.PauseGame());
+            pauseButton.onClick.AddListener(() => PauseGame());
         }
 
         if (resumeButton)
-            resumeButton.onClick.AddListener(() => Instance.PauseGame());
+            resumeButton.onClick.AddListener(() => PauseGame());
     }
 
     // Update is called once per frame
@@ -71,8 +67,10 @@ public class MenuManager : MonoBehaviour
     /// This will update the scene to the provived int
     /// </summary>
     /// <param name="scene"></param>
-    void ChangeScene(int scene)
+    public void ChangeScene(int scene)
     {
+        if (TestMode)
+            Debug.Log($"Changing scene to {scene}");
         SceneManager.LoadScene(scene);
     }
 
