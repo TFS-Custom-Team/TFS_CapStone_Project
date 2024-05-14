@@ -113,8 +113,8 @@ TextureImporter:
       name: topTiles_0
       rect:
         serializedVersion: 2
-        x: 110
-        y: 142
+        x: 0
+        y: 28
         width: 55
         height: 54
       alignment: 0
@@ -277,6 +277,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerSpawn
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 142
+        width: 55
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7feff46fa80840c41856c8a42837a2d1
+      internalID: -897284450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -288,6 +309,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      PlayerSpawn: -897284450
       Wall1: 1115009862
       Wall2: 19984029
       Wall3: -746423829
