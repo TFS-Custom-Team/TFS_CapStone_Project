@@ -199,6 +199,7 @@ public class Projectile : MonoBehaviour
             else
             {
                 player.GetComponent<Health>().damageTaken = 1;
+                Destroy(gameObject);
             }
         }
     }
