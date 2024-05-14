@@ -1,18 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.IO;
-using Unity.VisualScripting;
-using System.Linq;
-using Unity.Mathematics;
 using System;
-using System.Security.Cryptography;
-using TreeEditor;
 using UnityEditor;
-using UnityEngine.UIElements;
-using Unity.VisualScripting.FullSerializer;
-using UnityEngine.UI;
 /* ----------------------------------------------------------------------------------------------------------------------
  * Layout Loader and Editor
  * Created by: DrRetro
@@ -90,7 +81,7 @@ public class TilemapLayoutEditor : MonoBehaviour
 	public void clearTiles() {
 		tilemap.ClearAllTiles();
 	}
-
+	#if UNITY_EDITOR
 	public void LoadlevelwithEditorTiles() { //Load layout with all tiles that are excluive to the editor. ONLY AVAILABLE IN EDITOR.
 		LevelData data = JsonUtility.FromJson<LevelData>(layout.text);
 		tilemap.ClearAllTiles();
@@ -107,7 +98,6 @@ public class TilemapLayoutEditor : MonoBehaviour
 			tilemap.SetTile(data.poses[i], dict[data.tiles[i]]);
 		}
 	}
-
 	public void Savelevel(string path) { //ONLY AVAILABLE IN EDITOR.
 		BoundsInt bounds = tilemap.cellBounds; //How big is this level?
 
@@ -181,6 +171,7 @@ public class TilemapLayoutEditor : MonoBehaviour
 		string json = JsonUtility.ToJson(levelData, true);
 		File.WriteAllText(AssetDatabase.GetAssetPath(layout), json);
 	}
+	#endif
 }
 
 public class LevelData
@@ -188,7 +179,7 @@ public class LevelData
     public List<int> tiles = new List<int>(); //The tiles themselves.
     public List<Vector3Int> poses = new List<Vector3Int>(); //Positions of those tiles.
 }
-
+#if UNITY_EDITOR
 public class LayoutSaveName : EditorWindow //Do not worry about this code. There is nothing we need to modify here.
 {
 	public TilemapLayoutEditor editor;
@@ -268,9 +259,11 @@ public class SaveloadLayout : Editor {
 		}
 	}
 }
+#endif
 
 public class MissingTileDatabase : Exception {
 	public MissingTileDatabase() : base("LayoutEditor is missing a TileDatabase. Please set \"tileDatabase\" with \"LayoutTileData\". If \"LayoutTileData\" does not exist in files, please contact a Project Manager or Lead Developer.", null) {
 		return;
 	}
 }
+
