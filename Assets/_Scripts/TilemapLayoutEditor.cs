@@ -25,7 +25,7 @@ public class TilemapLayoutEditor : MonoBehaviour
 	private Vector3 player_spawn_pos;
 	// Start is called before the first frame update
 	void Start() {
-
+		Loadlevel();
 	}
 
     // Update is called once per frame
@@ -47,7 +47,7 @@ public class TilemapLayoutEditor : MonoBehaviour
 				tilemap.SetTile(data.poses[i], replacements["floor"]);
 			}
 			else if (data.tiles[i] == 7) {
-				player_spawn_pos = data.poses[i];
+				player_spawn_pos = tilemap.GetCellCenterWorld(data.poses[i]);
 				tilemap.SetTile(data.poses[i], replacements["floor"]);
 			}
 			else {
@@ -79,7 +79,7 @@ public class TilemapLayoutEditor : MonoBehaviour
 				tilemap.SetTile(data.poses[i], replacements["floor"]);
 			}
 			else if (data.tiles[i] == 7) {
-				player_spawn_pos = data.poses[i];
+				player_spawn_pos = tilemap.GetCellCenterWorld(data.poses[i]);
 				tilemap.SetTile(data.poses[i], replacements["floor"]);
 			}
 			else
