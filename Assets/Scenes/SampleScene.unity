@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 565274325}
   - component: {fileID: 565274324}
   - component: {fileID: 565274329}
+  - component: {fileID: 565274330}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -459,6 +460,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+--- !u!114 &565274330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565274323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53f2976e55ff4554882afade4d9dd5f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
+  damageTaken: 0
+  hitInvulnerabilityTime: 2
+  noHealthCap: 0
 --- !u!1001 &639827033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -471,6 +488,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 565274323}
+    - target: {fileID: -4002727398970619754, guid: ddbbc47fe29cee74d848c64046d7b6a6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -4002727398970619754, guid: ddbbc47fe29cee74d848c64046d7b6a6, type: 3}
       propertyPath: moveSpeed
       value: 0
@@ -526,8 +547,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5788191974857665610, guid: ddbbc47fe29cee74d848c64046d7b6a6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1278985312}
   m_SourcePrefab: {fileID: 100100000, guid: ddbbc47fe29cee74d848c64046d7b6a6, type: 3}
+--- !u!1 &1278985311 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5788191974857665610, guid: ddbbc47fe29cee74d848c64046d7b6a6, type: 3}
+  m_PrefabInstance: {fileID: 639827033}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1278985312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278985311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64d2b2aaa5c72414b9970c9e88df7271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 3554163622556761896, guid: 29cab23f85c894b44a800518529ea6ac, type: 3}
+  shootingCooldown: 5
+  col: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

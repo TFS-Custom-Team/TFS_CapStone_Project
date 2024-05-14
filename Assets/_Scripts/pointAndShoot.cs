@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ColorSwitching;
 
 public class pointAndShoot : MonoBehaviour
 {
     private GameObject player;
     public GameObject projectilePrefab;
     public float shootingCooldown = 5;
+    public ColorSwitching.Colors col = ColorSwitching.Colors.Blank;
+    SpriteRenderer sr;
 
     float timer;
     // Start is called before the first frame update
@@ -15,8 +18,10 @@ public class pointAndShoot : MonoBehaviour
     // Place whichever projectile we end up using as the projectilePrefab
     void Start()
     {
+        col = ColorSwitching.Colors.Green;
         player = GameObject.FindGameObjectWithTag("Player");
         timer = 0;
+        sr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -46,7 +51,7 @@ public class pointAndShoot : MonoBehaviour
             if (projectilePrefab != null)
             {
                 timer += Time.deltaTime;
-                Debug.Log(timer);
+                //Debug.Log(timer);
                 if (timer > shootingCooldown)
                 {
                     timer = 0;
@@ -58,9 +63,29 @@ public class pointAndShoot : MonoBehaviour
                     // WE DON'T HAVE ENEMY WITH COLOURS YET, SO IDK HOW IT WILL ACTUALLY WORK.
 
                     //projectile.GetComponent<projectilePlaceholderScript>().colour = gameObject.GetComponent<enemyPlaceholderScript>().colour;
-                    //projectile.GetComponent<projectilePlaceholderScript>().trajectory = transform.up;
+                    projectile.GetComponent<Projectile>().shoot(transform.up, 1, 1, col, gameObject, ownPos);
                 }
             }
+        }
+    }
+    void swapColor(ColorSwitching.Colors color)
+    {
+        col = color;
+
+        switch (color)
+        {
+            case ColorSwitching.Colors.Red:
+                sr.color = Color.red;
+                break;
+            case ColorSwitching.Colors.Green:
+                sr.color = Color.green;
+                break;
+            case ColorSwitching.Colors.Blue:
+                sr.color = Color.blue;
+                break;
+            case ColorSwitching.Colors.Black:
+                sr.color = Color.black;
+                break;
         }
     }
 }
