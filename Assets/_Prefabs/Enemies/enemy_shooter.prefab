@@ -99,10 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f2976e55ff4554882afade4d9dd5f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  health: 1
   damageTaken: 0
+  hitInvulnerabilityTime: 2
   noHealthCap: 0
-  hitInvulnerability: 0
 --- !u!61 &5194374038866171887
 BoxCollider2D:
   m_ObjectHideFlags: 0
