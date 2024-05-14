@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static ColorSwitching;
 
 public class WaveManager : MonoBehaviour
 {
@@ -44,8 +45,8 @@ public class WaveManager : MonoBehaviour
         {
             currentWave++; //increments the current wave
 
-            //determines the number of enemies to spawn for the current wave using 'random.Range' to radmoize the amount of enemies spawned
-            int enemiesToSpawn = Random.Range(minEnemiesPerWave[currentWave - 1], maxEnemiesPerWave[currentWave - 1] + 1);
+            //determines the number of enemies to spawn for the current wave using 'random.Range' to randomize the amount of enemies spawned
+            int enemiesToSpawn = Random.Range(minEnemiesPerWave[currentWave], maxEnemiesPerWave[currentWave] + 1);
             //start the coroutine, with the determined number of enemies from the routine below
             StartCoroutine(SpawnEnemies(enemiesToSpawn));
             
@@ -72,7 +73,22 @@ public class WaveManager : MonoBehaviour
     private void SpawnEnemy()
     {
         //Instantiates the enemy prefab at the spawn point and rotation (do I need the spawn point rotation?)
-        Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        switch (Random.Range(0,3))
+        {
+            case 0:
+                enemy.GetComponent<pointAndShoot>().swapColor(ColorSwitching.Colors.Red);
+                break;
+            case 1:
+                enemy.GetComponent<pointAndShoot>().swapColor(ColorSwitching.Colors.Blue);
+                break;
+            case 2:
+                enemy.GetComponent<pointAndShoot>().swapColor(ColorSwitching.Colors.Green);
+                break;
+            case 3:
+                enemy.GetComponent<pointAndShoot>().swapColor(ColorSwitching.Colors.Black);
+                break;
+        }
         enemiesSpawned++;
     }
 }

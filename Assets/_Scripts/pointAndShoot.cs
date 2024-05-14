@@ -68,7 +68,7 @@ public class pointAndShoot : MonoBehaviour
             }
         }
     }
-    void swapColor(ColorSwitching.Colors color)
+    public void swapColor(ColorSwitching.Colors color)
     {
         col = color;
 

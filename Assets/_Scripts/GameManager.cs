@@ -6,9 +6,9 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public Text scoreText;
-    public Text timeText;
-    public Text waveCountText;
+    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI timeText;
+    public TextMeshProUGUI waveCountText;
 
     private int score;
     private float elapsedTime;
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         }
         
         //update the GUI
-        UpdateGUI();
+        //UpdateGUI();
     }
 
     // Update is called once per frame
@@ -56,6 +56,6 @@ public class GameManager : MonoBehaviour
     private void HandleWaveStarted()
     {
         //some logic here that I am not sure of
-        UpdateGUI();
+        //UpdateGUI();
     }
 }
