@@ -316,6 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a07b0eededb194da766c18067f1c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currColor: 1
 --- !u!58 &565274325
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -513,6 +514,10 @@ PrefabInstance:
     - target: {fileID: 971724644390237570, guid: ddbbc47fe29cee74d848c64046d7b6a6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413520719777452303, guid: ddbbc47fe29cee74d848c64046d7b6a6, type: 3}
+      propertyPath: health
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5788191974857665610, guid: ddbbc47fe29cee74d848c64046d7b6a6, type: 3}
       propertyPath: m_Name
