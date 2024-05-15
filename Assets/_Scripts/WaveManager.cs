@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,14 +8,17 @@ using static ColorSwitching;
 
 public class WaveManager : MonoBehaviour
 {
-
+    
     public int currentWave;
+    public int maxWaves = 10;
     public int enemiesSpawned;
     public GameObject enemyPrefab; //need to assign the enemy prefab
     public Transform spawnPoint; //spawnpoint position
+    private IEnumerator coroutine;
+    private int seed;
 
-    public int[] minEnemiesPerWave;
-    public int[] maxEnemiesPerWave;
+    public int startingEnemiesPerWave;
+    public int enemyGrowthPerWave;
 
     public float spawnDelay = 1.0f; // Delay between enemy spawns (in seconds) initalize
 
@@ -23,6 +27,7 @@ public class WaveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UnityEngine.Random.InitState(seed);
         currentWave = 0;
         enemiesSpawned = 0;
     }
@@ -39,16 +44,16 @@ public class WaveManager : MonoBehaviour
 
     public void StartNextWave() 
     {
-        int maxWaves = 10;
         
         if(currentWave <= maxWaves)
         {
-            currentWave++; //increments the current wave
 
-            //determines the number of enemies to spawn for the current wave using 'random.Range' to randomize the amount of enemies spawned
-            int enemiesToSpawn = Random.Range(minEnemiesPerWave[currentWave], maxEnemiesPerWave[currentWave] + 1);
+            //determines the number of enemies to spawn for the current wave using the starting amount of enemies and increasing the amount based on the current wave
+            //Also increments cuurent wave
+            int enemiesToSpawn = startingEnemiesPerWave + enemyGrowthPerWave*currentWave++;
             //start the coroutine, with the determined number of enemies from the routine below
-            StartCoroutine(SpawnEnemies(enemiesToSpawn));
+            coroutine = SpawnEnemies(enemiesToSpawn);
+            StartCoroutine(coroutine);
             
 
         } else
@@ -72,21 +77,27 @@ public class WaveManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        //Instantiates the enemy prefab at the spawn point and rotation (do I need the spawn point rotation?)
-        GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-        switch (Random.Range(0,3))
+        //Instantiates the enemy prefab near the spawn point and rotation (do I need the spawn point rotation?)
+        float xOffset = UnityEngine.Random.Range(-1f, 1f);
+        float yOffset = UnityEngine.Random.Range(-1f, 1f);
+        Vector2 spawn = (Vector2)spawnPoint.position + new Vector2(xOffset, yOffset);
+
+        GameObject enemy = Instantiate(enemyPrefab, spawn, spawnPoint.rotation);
+        pointAndShoot temp = enemy.GetComponent<pointAndShoot>();
+        Debug.Log(temp == null ? "spawned enemy does not have a point and shoot component" : 0);
+        switch (UnityEngine.Random.Range(0,4))
         {
             case 0:
-                enemy.GetComponent<pointAndShoot>().swapColor(Colors.Red);
+                temp.swapColor(Colors.Red);
                 break;
             case 1:
-                enemy.GetComponent<pointAndShoot>().swapColor(Colors.Blue);
+                temp.swapColor(Colors.Green);
                 break;
             case 2:
-                enemy.GetComponent<pointAndShoot>().swapColor(Colors.Green);
+                temp.swapColor(Colors.Blue);
                 break;
             case 3:
-                enemy.GetComponent<pointAndShoot>().swapColor(Colors.Black);
+                temp.swapColor(Colors.Black);
                 break;
         }
         enemiesSpawned++;

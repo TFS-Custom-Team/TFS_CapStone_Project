@@ -16,7 +16,7 @@ public class pointAndShoot : MonoBehaviour
     // Nicholas H
     // 5/1/2024
     // Place whichever projectile we end up using as the projectilePrefab
-    void Start()
+    void Awake()
     {
         col = Colors.Green;
         player = GameObject.FindGameObjectWithTag("Player");

@@ -1814,12 +1814,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWave: 0
+  maxWaves: 10
   enemiesSpawned: 0
   enemyPrefab: {fileID: 5788191974857665610, guid: ddbbc47fe29cee74d848c64046d7b6a6, type: 3}
   spawnPoint: {fileID: 1639910151}
-  minEnemiesPerWave: 0200000004000000
-  maxEnemiesPerWave: 0300000006000000
-  spawnDelay: 3.12
+  startingEnemiesPerWave: 4
+  enemyGrowthPerWave: 2
+  spawnDelay: 1
 --- !u!4 &1788536090
 Transform:
   m_ObjectHideFlags: 0
@@ -1848,6 +1849,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 538016068}
+    - target: {fileID: 3001954623171922304, guid: 6a594c6214726de438ab0b9e0c348c1f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.00012207031
+      objectReference: {fileID: 0}
     - target: {fileID: 4343725879570174238, guid: 6a594c6214726de438ab0b9e0c348c1f, type: 3}
       propertyPath: m_Name
       value: CanvasParent
