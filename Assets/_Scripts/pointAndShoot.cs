@@ -8,7 +8,7 @@ public class pointAndShoot : MonoBehaviour
     private GameObject player;
     public GameObject projectilePrefab;
     public float shootingCooldown = 5;
-    public ColorSwitching.Colors col = ColorSwitching.Colors.Blank;
+    public Colors col = Colors.Blank;
     SpriteRenderer sr;
 
     float timer;
@@ -16,9 +16,9 @@ public class pointAndShoot : MonoBehaviour
     // Nicholas H
     // 5/1/2024
     // Place whichever projectile we end up using as the projectilePrefab
-    void Start()
+    void Awake()
     {
-        col = ColorSwitching.Colors.Green;
+        col = Colors.Green;
         player = GameObject.FindGameObjectWithTag("Player");
         timer = 0;
         sr = GetComponent<SpriteRenderer>();
@@ -56,34 +56,29 @@ public class pointAndShoot : MonoBehaviour
                 {
                     timer = 0;
                     GameObject projectile = Instantiate(projectilePrefab, ownPos, Quaternion.identity);
-                    // optionally here, we can instantiate the projectile's angle while also using the "pointingAngle" float.
-
-
-                    // THESE DON'T EXIST YET. SO THEY ARE PLACEHOLDERS
-                    // WE DON'T HAVE ENEMY WITH COLOURS YET, SO IDK HOW IT WILL ACTUALLY WORK.
-
+ 
                     //projectile.GetComponent<projectilePlaceholderScript>().colour = gameObject.GetComponent<enemyPlaceholderScript>().colour;
                     projectile.GetComponent<Projectile>().shoot(transform.up, 1, 1, col, gameObject, ownPos);
                 }
             }
         }
     }
-    void swapColor(ColorSwitching.Colors color)
+    public void swapColor(ColorSwitching.Colors color)
     {
         col = color;
 
         switch (color)
         {
-            case ColorSwitching.Colors.Red:
+            case Colors.Red:
                 sr.color = Color.red;
                 break;
-            case ColorSwitching.Colors.Green:
+            case Colors.Green:
                 sr.color = Color.green;
                 break;
-            case ColorSwitching.Colors.Blue:
+            case Colors.Blue:
                 sr.color = Color.blue;
                 break;
-            case ColorSwitching.Colors.Black:
+            case Colors.Black:
                 sr.color = Color.black;
                 break;
         }
