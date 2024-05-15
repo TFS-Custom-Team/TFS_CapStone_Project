@@ -77,16 +77,16 @@ public class WaveManager : MonoBehaviour
         switch (Random.Range(0,3))
         {
             case 0:
-                enemy.GetComponent<pointAndShoot>().swapColor(ColorSwitching.Colors.Red);
+                enemy.GetComponent<pointAndShoot>().swapColor(Colors.Red);
                 break;
             case 1:
-                enemy.GetComponent<pointAndShoot>().swapColor(ColorSwitching.Colors.Blue);
+                enemy.GetComponent<pointAndShoot>().swapColor(Colors.Blue);
                 break;
             case 2:
-                enemy.GetComponent<pointAndShoot>().swapColor(ColorSwitching.Colors.Green);
+                enemy.GetComponent<pointAndShoot>().swapColor(Colors.Green);
                 break;
             case 3:
-                enemy.GetComponent<pointAndShoot>().swapColor(ColorSwitching.Colors.Black);
+                enemy.GetComponent<pointAndShoot>().swapColor(Colors.Black);
                 break;
         }
         enemiesSpawned++;

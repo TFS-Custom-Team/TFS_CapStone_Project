@@ -1819,7 +1819,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1639910151}
   minEnemiesPerWave: 0200000004000000
   maxEnemiesPerWave: 0300000006000000
-  spawnDelay: 3
+  spawnDelay: 3.12
 --- !u!4 &1788536090
 Transform:
   m_ObjectHideFlags: 0
