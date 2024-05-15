@@ -15,7 +15,6 @@ public class WaveManager : MonoBehaviour
     public GameObject enemyPrefab; //need to assign the enemy prefab
     public Transform spawnPoint; //spawnpoint position
     private IEnumerator coroutine;
-    private int seed;
 
     public int startingEnemiesPerWave;
     public int enemyGrowthPerWave;
@@ -27,7 +26,7 @@ public class WaveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UnityEngine.Random.InitState(seed);
+        UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
         currentWave = 0;
         enemiesSpawned = 0;
     }
