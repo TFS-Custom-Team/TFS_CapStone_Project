@@ -1,19 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.IO;
-using Unity.VisualScripting;
-using System.Linq;
-using Unity.Mathematics;
 using System;
-using System.Security.Cryptography;
-using TreeEditor;
 using UnityEditor;
-using UnityEngine.UIElements;
-using Unity.VisualScripting.FullSerializer;
-using UnityEngine.UI;
-
+/* ----------------------------------------------------------------------------------------------------------------------
+ * Layout Loader and Editor
+ * Created by: DrRetro
+ * 
+ * This script is the Editor and Loader for our game. It has two main fuctions, to create layouts and load them in-game.
+ * To be honest, the only function that you really need to know is Loadlevel.
+ * ----------------------------------------------------------------------------------------------------------------------
+ */
 public class TilemapLayoutEditor : MonoBehaviour
 {
 	[Tooltip("Set to the current tilemap.")]
@@ -23,6 +21,8 @@ public class TilemapLayoutEditor : MonoBehaviour
     [Tooltip("Replacement tiles for random generation. Requires replacement called \"floor\" and \"wall\".")]
     public UDictionary<string, TileBase> replacements; //For numbered tiles. Easy way to change the TileBase for temporary/editor only tiles.
 	public TextAsset layout; //Set this with the layout you want to load in when possible.
+	public GameObject Player;
+	private Vector3 player_spawn_pos;
 	// Start is called before the first frame update
 	void Start() {
 
@@ -46,9 +46,14 @@ public class TilemapLayoutEditor : MonoBehaviour
 			else if ((data.tiles[i] > 0 && data.tiles[i] <= 6)) {
 				tilemap.SetTile(data.poses[i], replacements["floor"]);
 			}
+			else if (data.tiles[i] == 7) {
+				player_spawn_pos = data.poses[i];
+				tilemap.SetTile(data.poses[i], replacements["floor"]);
+			}
 			else {
 				tilemap.SetTile(data.poses[i], dict[data.tiles[i]]);
 			}
+			playerSpawn();
 		}
 	}
 
@@ -61,7 +66,7 @@ public class TilemapLayoutEditor : MonoBehaviour
 		try {
 			dict = tileDatabase.getOppositeDictionary();
 		}
-		catch (Exception e) {
+		catch (Exception e) { // Throws a custom error that says that the TileDatabase is missing.
 			throw new MissingTileDatabase();
 		}
 		for (int i = 0; i < data.poses.Count; i++) {
@@ -73,13 +78,25 @@ public class TilemapLayoutEditor : MonoBehaviour
 			{
 				tilemap.SetTile(data.poses[i], replacements["floor"]);
 			}
+			else if (data.tiles[i] == 7) {
+				player_spawn_pos = data.poses[i];
+				tilemap.SetTile(data.poses[i], replacements["floor"]);
+			}
 			else
 			{
 				tilemap.SetTile(data.poses[i], dict[data.tiles[i]]);
 			}
 		}
+		playerSpawn();
 	}
 
+	public void playerSpawn() {
+		Player.transform.position = transform.position;
+	}
+	public void clearTiles() {
+		tilemap.ClearAllTiles();
+	}
+	#if UNITY_EDITOR
 	public void LoadlevelwithEditorTiles() { //Load layout with all tiles that are excluive to the editor. ONLY AVAILABLE IN EDITOR.
 		LevelData data = JsonUtility.FromJson<LevelData>(layout.text);
 		tilemap.ClearAllTiles();
@@ -96,14 +113,12 @@ public class TilemapLayoutEditor : MonoBehaviour
 			tilemap.SetTile(data.poses[i], dict[data.tiles[i]]);
 		}
 	}
-
 	public void Savelevel(string path) { //ONLY AVAILABLE IN EDITOR.
 		BoundsInt bounds = tilemap.cellBounds; //How big is this level?
 
 		LevelData levelData = new LevelData();
 
-		for (int x = bounds.min.x; x < bounds.max.x; x++)
-		{
+		for (int x = bounds.min.x; x < bounds.max.x; x++) { // For getting all tiles in the tilemap.
 			for (int y = bounds.min.y; y < bounds.max.y; y++)
 			{
 				TileBase temp = tilemap.GetTile(new Vector3Int(x, y, 0));
@@ -124,10 +139,10 @@ public class TilemapLayoutEditor : MonoBehaviour
 	public void Savelevel() { //ONLY AVAILABLE IN EDITOR.
         BoundsInt bounds = tilemap.cellBounds; //How big is this level?
 
-        LevelData levelData = new LevelData();
+        LevelData levelData = new LevelData(); 
         
-        for(int x = bounds.min.x; x < bounds.max.x; x++) {
-            for(int y = bounds.min.y; y < bounds.max.y; y++) {
+        for(int x = bounds.min.x; x < bounds.max.x; x++) {  //For getting all tiles in the tilemap.
+			for (int y = bounds.min.y; y < bounds.max.y; y++) {
                 TileBase temp = tilemap.GetTile(new Vector3Int(x, y, 0));
 
                 if (temp != null) {
@@ -155,8 +170,7 @@ public class TilemapLayoutEditor : MonoBehaviour
 
 		LevelData levelData = new LevelData();
 
-		for (int x = bounds.min.x; x < bounds.max.x; x++)
-		{
+		for (int x = bounds.min.x; x < bounds.max.x; x++) {//For getting all tiles in the tilemap.
 			for (int y = bounds.min.y; y < bounds.max.y; y++)
 			{
 				TileBase temp = tilemap.GetTile(new Vector3Int(x, y, 0));
@@ -172,6 +186,7 @@ public class TilemapLayoutEditor : MonoBehaviour
 		string json = JsonUtility.ToJson(levelData, true);
 		File.WriteAllText(AssetDatabase.GetAssetPath(layout), json);
 	}
+	#endif
 }
 
 public class LevelData
@@ -179,7 +194,7 @@ public class LevelData
     public List<int> tiles = new List<int>(); //The tiles themselves.
     public List<Vector3Int> poses = new List<Vector3Int>(); //Positions of those tiles.
 }
-
+#if UNITY_EDITOR
 public class LayoutSaveName : EditorWindow //Do not worry about this code. There is nothing we need to modify here.
 {
 	public TilemapLayoutEditor editor;
@@ -207,7 +222,7 @@ public class LayoutSaveName : EditorWindow //Do not worry about this code. There
 		Debug.Log(editor);
 		Debug.Log(name_of_file);
 		if (name_of_file.Length > 0) {
-			editor.Savelevel(Application.dataPath + "/LevelJSON/" + name_of_file + ".json");
+			editor.Savelevel(Application.dataPath + "/_LevelJSON/" + name_of_file + ".json");
 			Close();
 		}
 	}
@@ -254,11 +269,16 @@ public class SaveloadLayout : Editor {
 		if (GUILayout.Button("Save Layout")) {
 			myScript.Savelevel();
 		}
+		if (GUILayout.Button("Clear All Tiles")) {
+			myScript.clearTiles();
+		}
 	}
 }
+#endif
 
 public class MissingTileDatabase : Exception {
 	public MissingTileDatabase() : base("LayoutEditor is missing a TileDatabase. Please set \"tileDatabase\" with \"LayoutTileData\". If \"LayoutTileData\" does not exist in files, please contact a Project Manager or Lead Developer.", null) {
 		return;
 	}
 }
+

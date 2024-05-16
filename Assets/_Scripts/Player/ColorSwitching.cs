@@ -16,7 +16,7 @@ public class ColorSwitching : MonoBehaviour
     // Start is called before the first frame update
 
     //This enumeration represent the different colors the player can turn into
-    enum Colors
+    public enum Colors
     {
         Blank = 0,
         Red,
@@ -34,7 +34,8 @@ public class ColorSwitching : MonoBehaviour
 
     Rigidbody2D rb;
     SpriteRenderer sr;
-    Colors currColor = Colors.Red;
+    PlayerController player;
+    public Colors currColor = Colors.Red;
     int maxListSize = 3;
 
     List<Direction> inputs;
@@ -55,6 +56,7 @@ public class ColorSwitching : MonoBehaviour
 
          rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        player = GetComponent<PlayerController>();
 
         ChangeColor(Colors.Red);
 
@@ -161,6 +163,21 @@ public class ColorSwitching : MonoBehaviour
                 sr.color = Color.black;
                 currColor = Colors.Black;
                 break;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.CompareTag("Projectile"))
+        {
+            if(currColor == collision.GetComponent<Projectile>().color)
+            {
+                collision.GetComponent<Projectile>().Bounce();
+
+            }
+            else
+            {
+                //Damage Player
+            }
         }
     }
 }

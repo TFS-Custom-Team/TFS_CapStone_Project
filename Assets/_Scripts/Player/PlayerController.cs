@@ -26,4 +26,6 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = moveInput * moveSpeed;            //setting up rigidbody velocity
     }
+
+
 }
