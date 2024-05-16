@@ -3,47 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro; // TextMeshPro
 using Dan.Main; // Dan's Main
+using UnityEngine.UI;
+using System; // UI
 
 public class LeaderBoard : MonoBehaviour
 {
 
-    [SerializeField] private List<TextMeshProUGUI> names;
-    [SerializeField] private List<TextMeshProUGUI> scores;
+    private Transform entryContainer;
+    private Transform entryTemplate;
 
-    private string publicLeaderboardTestKey = "cfd99aaccdb895a91b1d337754ce334954947766c0f3eb6f517a6962e986b124";
-
-    public void GetLeaderBoardTest()
+    private void Awake()
     {
-        LeaderboardCreator.GetLeaderboard(publicLeaderboardTestKey, ((msg) =>
-        { 
-            int leaderBoardLength = (msg.Length < names.Count) ? msg.Length : names.Count;
-            for (int i = 0; i < names.Count; i++)
-            {
-                names[i].text = msg[i].Username;
-                scores[i].text = msg[i].Score.ToString();
-            }
-        }));
-    }
+       entryContainer = transform.Find("highScoreEntryContainer");
+       entryTemplate = entryContainer.Find("highScoreEntryTemplate"); 
 
-    public void SetLeaderboardEntry(string username, int score)
-    {
-        LeaderboardCreator.UploadNewEntry(publicLeaderboardTestKey, username, score, ((msg) =>
+
+       //Hides the template on the screen once the game starts on Awake
+       entryTemplate.gameObject.SetActive(false);
+
+
+       //Add a new highscore entry to the leaderboard
+       float templateHeight = 30f;
+        for (int i = 0; i < 10; i++)
         {
-            //if (System.Array.IndexOf(wordsNotPermitted, name) != -1) return;
-            GetLeaderBoardTest();
-            Debug.Log(msg);
-        }));
-    }
+              Transform entryTransform = Instantiate(entryTemplate, entryContainer);
+              RectTransform entryRectTransform = entryTransform.GetComponent<RectTransform>();
+              entryRectTransform.anchoredPosition = new Vector2(0, -templateHeight * i);
+              entryTransform.gameObject.SetActive(true);
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-        GetLeaderBoardTest();
-    }
+            int rank = i + 1;
+            string rankString;
+            switch (rank)
+            {
+                default:
+                    rankString = rank + "TH"; break;
 
-    // Update is called once per frame
-    void Update()
-    {
- 
+                case 1: rankString = "1ST"; break;
+                case 2: rankString = "2ND"; break;
+                case 3: rankString = "3RD"; break;
+            }
+
+            entryTransform.Find("rankText").GetComponent<TextMeshProUGUI>().text = rankString;
+
+            //int score = UnityEngine.Random.Range(0, 100);
+            //entryTransform.Find("scoreText").GetComponent<TextMeshProUGUI>().text = score.ToString();
+
+            string name = "AAA";
+            entryTransform.Find("nameText").GetComponent<TextMeshProUGUI>().text = name;
+        }
     }
 }
