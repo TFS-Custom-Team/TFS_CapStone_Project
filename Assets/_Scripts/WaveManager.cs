@@ -10,7 +10,6 @@ public class WaveManager : MonoBehaviour
 {
     
     public int currentWave;
-    public int maxWaves = 10;
     public int enemiesSpawned;
     public GameObject enemyPrefab; //need to assign the enemy prefab
     public Transform spawnPoint; //spawnpoint position
@@ -29,38 +28,23 @@ public class WaveManager : MonoBehaviour
         UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
         currentWave = 0;
         enemiesSpawned = 0;
+        StartNextWave();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //We can use this for testing
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            StartNextWave();
-        }
+        return;
     }
 
     public void StartNextWave() 
     {
-        
-        if(currentWave <= maxWaves)
-        {
-
-            //determines the number of enemies to spawn for the current wave using the starting amount of enemies and increasing the amount based on the current wave
-            //Also increments cuurent wave
-            int enemiesToSpawn = startingEnemiesPerWave + enemyGrowthPerWave*currentWave++;
-            //start the coroutine, with the determined number of enemies from the routine below
-            coroutine = SpawnEnemies(enemiesToSpawn);
-            StartCoroutine(coroutine);
-            
-
-        } else
-        {
-            Debug.Log("Reached max waves");
-        }
-
-        
+        //determines the number of enemies to spawn for the current wave using the starting amount of enemies and increasing the amount based on the current wave
+        //Also increments cuurent wave
+        int enemiesToSpawn = startingEnemiesPerWave + enemyGrowthPerWave*currentWave++;
+        //start the coroutine, with the determined number of enemies from the routine below
+        coroutine = SpawnEnemies(enemiesToSpawn);
+        StartCoroutine(coroutine);
     }
 
     private IEnumerator SpawnEnemies(int enemiesToSpawn)

@@ -22,6 +22,7 @@ public class TilemapLayoutEditor : MonoBehaviour
     public UDictionary<string, TileBase> replacements; //For numbered tiles. Easy way to change the TileBase for temporary/editor only tiles.
 	public TextAsset layout; //Set this with the layout you want to load in when possible.
 	public GameObject Player;
+	public WaveManager WaveManager;
 	private Vector3 player_spawn_pos;
 	// Start is called before the first frame update
 	void Start() {
