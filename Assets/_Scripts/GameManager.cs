@@ -6,6 +6,8 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
+
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI waveCountText;
@@ -15,6 +17,42 @@ public class GameManager : MonoBehaviour
     private int waveCount;
 
     private WaveManager waveManager;
+
+    private void Awake()
+    {
+        //Find the scoreText in the scene
+        scoreText = GameObject.Find("Score")?.GetComponent<TextMeshProUGUI>();
+        if (scoreText == null)
+        {
+            Debug.LogError("Score is not assigned.");
+        }
+
+        //Find the timeText in the scene
+        timeText = GameObject.Find("Time")?.GetComponent<TextMeshProUGUI>();
+        if (timeText == null)
+        {
+            Debug.LogError("Time is not assigned.");
+        }
+
+        //Find the waveCountText in the scene
+        waveCountText = GameObject.Find("WaveCount")?.GetComponent<TextMeshProUGUI>();
+        if (waveCountText == null)
+        {
+            Debug.LogError("WaveCount is not assigned.");
+        }
+
+        //Score Instance 
+         if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
