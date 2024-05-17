@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2041817024119006576}
   - component: {fileID: 908239084291327562}
   - component: {fileID: 2722367314019280264}
+  - component: {fileID: -6317581767941373934}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -162,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a07b0eededb194da766c18067f1c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currColor: 1
 --- !u!114 &2722367314019280264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,3 +177,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+--- !u!114 &-6317581767941373934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6089719260323399120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53f2976e55ff4554882afade4d9dd5f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
+  damageTaken: 0
+  hitInvulnerabilityTime: 2
+  noHealthCap: 0

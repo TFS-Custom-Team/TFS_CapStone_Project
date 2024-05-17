@@ -1,22 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static ColorSwitching;
 
 public class pointAndShoot : MonoBehaviour
 {
     private GameObject player;
     public GameObject projectilePrefab;
     public float shootingCooldown = 5;
+    public Colors col = Colors.Blank;
+    SpriteRenderer sr;
 
     float timer;
     // Start is called before the first frame update
     // Nicholas H
     // 5/1/2024
     // Place whichever projectile we end up using as the projectilePrefab
-    void Start()
+    void Awake()
     {
+        col = Colors.Green;
         player = GameObject.FindGameObjectWithTag("Player");
         timer = 0;
+        sr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -46,21 +51,36 @@ public class pointAndShoot : MonoBehaviour
             if (projectilePrefab != null)
             {
                 timer += Time.deltaTime;
-                Debug.Log(timer);
+                //Debug.Log(timer);
                 if (timer > shootingCooldown)
                 {
                     timer = 0;
                     GameObject projectile = Instantiate(projectilePrefab, ownPos, Quaternion.identity);
-                    // optionally here, we can instantiate the projectile's angle while also using the "pointingAngle" float.
-
-
-                    // THESE DON'T EXIST YET. SO THEY ARE PLACEHOLDERS
-                    // WE DON'T HAVE ENEMY WITH COLOURS YET, SO IDK HOW IT WILL ACTUALLY WORK.
-
+ 
                     //projectile.GetComponent<projectilePlaceholderScript>().colour = gameObject.GetComponent<enemyPlaceholderScript>().colour;
-                    //projectile.GetComponent<projectilePlaceholderScript>().trajectory = transform.up;
+                    projectile.GetComponent<Projectile>().shoot(transform.up, 1, 1, col, gameObject, ownPos);
                 }
             }
+        }
+    }
+    public void swapColor(ColorSwitching.Colors color)
+    {
+        col = color;
+
+        switch (color)
+        {
+            case Colors.Red:
+                sr.color = Color.red;
+                break;
+            case Colors.Green:
+                sr.color = Color.green;
+                break;
+            case Colors.Blue:
+                sr.color = Color.blue;
+                break;
+            case Colors.Black:
+                sr.color = Color.black;
+                break;
         }
     }
 }
