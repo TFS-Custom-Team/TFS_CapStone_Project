@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class GameManager : MonoBehaviour
     private float elapsedTime;
     private int waveCount;
 
-    private WaveManager waveManager;
+    public GameObject waveManager;
 
     // Start is called before the first frame update
     void Start()
@@ -25,16 +26,10 @@ public class GameManager : MonoBehaviour
         waveCount = 0;
 
         //find the wave manager
-        waveManager = FindObjectOfType<WaveManager>();
-        //check here that the waveManager is found
-        if(waveManager == null)
-        {
-            Debug.Log("Wave manager not found");
-        }
-        
-        //update the GUI
-        //UpdateGUI();
-    }
+        waveManager.GetComponent<WaveManager>().StartNextWave();
+		//update the GUI
+		//UpdateGUI();
+	}
 
     // Update is called once per frame
     void Update()

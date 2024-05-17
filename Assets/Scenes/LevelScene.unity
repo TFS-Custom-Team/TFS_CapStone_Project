@@ -155,6 +155,7 @@ MonoBehaviour:
   scoreText: {fileID: 6697022477495401355}
   timeText: {fileID: 0}
   waveCountText: {fileID: 0}
+  waveManager: {fileID: 1788536088}
 --- !u!4 &476864883
 Transform:
   m_ObjectHideFlags: 0
@@ -329,8 +330,9 @@ MonoBehaviour:
     values:
     - {fileID: 11400000, guid: ba5e8f883ec907540a84354b9c237974, type: 2}
     - {fileID: 11400000, guid: 41f0ffc3d34daf94180a4b0f29d6392c, type: 2}
-  layout: {fileID: 4900000, guid: b9ab85b7107b48f4e84f3f71d75d1461, type: 3}
+  layout: {fileID: 0}
   Player: {fileID: 1202058619}
+  WaveManager: {fileID: 1788536089}
 --- !u!1 &865422975
 GameObject:
   m_ObjectHideFlags: 0
@@ -2591,7 +2593,7 @@ Transform:
   m_GameObject: {fileID: 1639910150}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.21, y: 0.28, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2630,7 +2632,7 @@ MonoBehaviour:
   maxWaves: 10
   enemiesSpawned: 0
   enemyPrefab: {fileID: 5788191974857665610, guid: ddbbc47fe29cee74d848c64046d7b6a6, type: 3}
-  spawnPoint: {fileID: 1639910151}
+  spawnPoint: {fileID: 582619989}
   startingEnemiesPerWave: 4
   enemyGrowthPerWave: 2
   spawnDelay: 3
@@ -2643,7 +2645,7 @@ Transform:
   m_GameObject: {fileID: 1788536088}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3495611, y: 0.13489011, z: 0.04547894}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
