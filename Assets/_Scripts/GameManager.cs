@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
     private float elapsedTime;
     private int waveCount;
 
-    public GameObject waveManager;
-
+    public WaveManager waveManager;
+    public TilemapLayoutEditor layoutLoader;
     private void Awake()
     {
         //Find the scoreText in the scene
@@ -53,7 +53,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-    }
+		BeginNewWave();
+	}
 
     // Start is called before the first frame update
     void Start()
@@ -62,9 +63,7 @@ public class GameManager : MonoBehaviour
         score = 0;
         elapsedTime = 0;
         waveCount = 0;
-
         //find the wave manager
-        waveManager.GetComponent<WaveManager>().StartNextWave();
 		//update the GUI
 		//UpdateGUI();
 	}
@@ -75,7 +74,7 @@ public class GameManager : MonoBehaviour
         //update the elasped time
         elapsedTime += Time.deltaTime;
         //update GUI
-        UpdateGUI();
+/*        UpdateGUI();*/
     }
 
     //function for updating the GUI 
@@ -86,9 +85,8 @@ public class GameManager : MonoBehaviour
         waveCountText.text = "Wave: " + waveCount;
     }
     //function to handle wave started and update this in the GUI
-    private void HandleWaveStarted()
-    {
-        //some logic here that I am not sure of
-        //UpdateGUI();
-    }
+    public void BeginNewWave() {
+        layoutLoader.Loadlevel();
+		waveManager.StartNextWave();
+	}
 }
