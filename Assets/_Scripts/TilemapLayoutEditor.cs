@@ -22,10 +22,11 @@ public class TilemapLayoutEditor : MonoBehaviour
     public UDictionary<string, TileBase> replacements; //For numbered tiles. Easy way to change the TileBase for temporary/editor only tiles.
 	public TextAsset layout; //Set this with the layout you want to load in when possible.
 	public GameObject Player;
+	public WaveManager WaveManager;
 	private Vector3 player_spawn_pos;
 	// Start is called before the first frame update
 	void Start() {
-
+/*		Loadlevel();*/
 	}
 
     // Update is called once per frame
@@ -47,7 +48,7 @@ public class TilemapLayoutEditor : MonoBehaviour
 				tilemap.SetTile(data.poses[i], replacements["floor"]);
 			}
 			else if (data.tiles[i] == 7) {
-				player_spawn_pos = data.poses[i];
+				player_spawn_pos = tilemap.GetCellCenterWorld(data.poses[i]);
 				tilemap.SetTile(data.poses[i], replacements["floor"]);
 			}
 			else {
@@ -79,7 +80,7 @@ public class TilemapLayoutEditor : MonoBehaviour
 				tilemap.SetTile(data.poses[i], replacements["floor"]);
 			}
 			else if (data.tiles[i] == 7) {
-				player_spawn_pos = data.poses[i];
+				player_spawn_pos = tilemap.GetCellCenterWorld(data.poses[i]);
 				tilemap.SetTile(data.poses[i], replacements["floor"]);
 			}
 			else

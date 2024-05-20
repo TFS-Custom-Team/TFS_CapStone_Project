@@ -2,7 +2,9 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 using static ColorSwitching;
 
@@ -10,12 +12,12 @@ public class WaveManager : MonoBehaviour
 {
     
     public int currentWave;
-    public int maxWaves = 10;
     public int enemiesSpawned;
+    public int budget;
     public GameObject enemyPrefab; //need to assign the enemy prefab
     public Transform spawnPoint; //spawnpoint position
     private IEnumerator coroutine;
-
+    public UnityEvent waveFinished;
     public int startingEnemiesPerWave;
     public int enemyGrowthPerWave;
 
@@ -34,33 +36,18 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //We can use this for testing
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            StartNextWave();
-        }
+        return;
     }
 
     public void StartNextWave() 
     {
-        
-        if(currentWave <= maxWaves)
-        {
-
-            //determines the number of enemies to spawn for the current wave using the starting amount of enemies and increasing the amount based on the current wave
-            //Also increments cuurent wave
-            int enemiesToSpawn = startingEnemiesPerWave + enemyGrowthPerWave*currentWave++;
-            //start the coroutine, with the determined number of enemies from the routine below
-            coroutine = SpawnEnemies(enemiesToSpawn);
-            StartCoroutine(coroutine);
-            
-
-        } else
-        {
-            Debug.Log("Reached max waves");
-        }
-
-        
+        //determines the number of enemies to spawn for the current wave using the starting amount of enemies and increasing the amount based on the current wave
+        //Also increments cuurent wave
+        int enemiesToSpawn = startingEnemiesPerWave + enemyGrowthPerWave*currentWave++;
+		budget = enemiesToSpawn;
+		//start the coroutine, with the determined number of enemies from the routine below
+		coroutine = SpawnEnemies(enemiesToSpawn);
+        StartCoroutine(coroutine);
     }
 
     private IEnumerator SpawnEnemies(int enemiesToSpawn)
@@ -99,6 +86,14 @@ public class WaveManager : MonoBehaviour
                 temp.swapColor(Colors.Black);
                 break;
         }
+        enemy.GetComponent<Health>().onDeath.AddListener(onEnemyDeath);
         enemiesSpawned++;
+    }
+
+    private void onEnemyDeath() {
+        budget -= 1;
+        if (budget <= 0) {
+            waveFinished.Invoke();
+        }
     }
 }
