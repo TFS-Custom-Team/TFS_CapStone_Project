@@ -2,7 +2,9 @@ using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UIElements;
 using static ColorSwitching;
 
@@ -11,10 +13,11 @@ public class WaveManager : MonoBehaviour
     
     public int currentWave;
     public int enemiesSpawned;
+    public int budget;
     public GameObject enemyPrefab; //need to assign the enemy prefab
     public Transform spawnPoint; //spawnpoint position
     private IEnumerator coroutine;
-
+    public UnityEvent waveFinished;
     public int startingEnemiesPerWave;
     public int enemyGrowthPerWave;
 
@@ -28,7 +31,6 @@ public class WaveManager : MonoBehaviour
         UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
         currentWave = 0;
         enemiesSpawned = 0;
-        StartNextWave();
     }
 
     // Update is called once per frame
@@ -42,8 +44,9 @@ public class WaveManager : MonoBehaviour
         //determines the number of enemies to spawn for the current wave using the starting amount of enemies and increasing the amount based on the current wave
         //Also increments cuurent wave
         int enemiesToSpawn = startingEnemiesPerWave + enemyGrowthPerWave*currentWave++;
-        //start the coroutine, with the determined number of enemies from the routine below
-        coroutine = SpawnEnemies(enemiesToSpawn);
+		budget = enemiesToSpawn;
+		//start the coroutine, with the determined number of enemies from the routine below
+		coroutine = SpawnEnemies(enemiesToSpawn);
         StartCoroutine(coroutine);
     }
 
@@ -83,6 +86,14 @@ public class WaveManager : MonoBehaviour
                 temp.swapColor(Colors.Black);
                 break;
         }
+        enemy.GetComponent<Health>().onDeath.AddListener(onEnemyDeath);
         enemiesSpawned++;
+    }
+
+    private void onEnemyDeath() {
+        budget -= 1;
+        if (budget <= 0) {
+            waveFinished.Invoke();
+        }
     }
 }

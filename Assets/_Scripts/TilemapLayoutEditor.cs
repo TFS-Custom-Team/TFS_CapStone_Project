@@ -26,7 +26,7 @@ public class TilemapLayoutEditor : MonoBehaviour
 	private Vector3 player_spawn_pos;
 	// Start is called before the first frame update
 	void Start() {
-		Loadlevel();
+/*		Loadlevel();*/
 	}
 
     // Update is called once per frame

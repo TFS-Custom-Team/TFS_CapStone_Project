@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -8,6 +9,7 @@ public class Health : MonoBehaviour
     private int maxHealth;
     public int damageTaken = 0;
     public float hitInvulnerabilityTime = 2;
+    public UnityEvent onDeath;
     private float timer = 0;
 
     public bool noHealthCap = false;
@@ -82,7 +84,8 @@ public class Health : MonoBehaviour
 
     void killEntity()
     {
-        Destroy(gameObject);
+        onDeath.Invoke();
+		Destroy(gameObject);
     }
     void takeDamage()
     {
