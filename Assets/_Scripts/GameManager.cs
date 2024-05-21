@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI waveCountText;
 
-    private int score;
+    public int score;
     private float elapsedTime;
     private int waveCount;
 

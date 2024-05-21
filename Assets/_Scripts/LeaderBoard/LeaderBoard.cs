@@ -39,20 +39,19 @@ public class LeaderBoard : MonoBehaviour
         }
 
         // Find highScoreEntryContainer in the scene
-        entryContainer = GameObject.Find("highScoreEntryContainer")?.transform;
+         entryContainer = GameObject.Find("highScoreEntryContainer")?.transform;
 
         // Find highScoreEntryTemplate within highScoreEntryContainer
-        entryTemplate = entryContainer.Find("highScoreEntryTemplate");
+         entryTemplate = entryContainer.Find("highScoreEntryTemplate");
 
         //Hide the template on the screen once the game starts on Awake
-        entryTemplate.gameObject.SetActive(false);
+         entryTemplate.gameObject.SetActive(false);
 
-        //Hide User Score inside the highScoreEntryContainer
-        Transform scoreTransform = GameObject.Find("Score")?.transform;
-        if (scoreTransform != null)
-        {
-            scoreTransform.gameObject.SetActive(false);
-        }
+        //Hide InputField inside the highScoreEntryContainer
+         nameInputField.gameObject.SetActive(false);
+
+        //Hide SubmitButton inside the highScoreEntryContainer
+         submitButton.gameObject.SetActive(false);
 
         //Initialize and populate the highScoreEntryList with some example data
         highScoreEntryList = new List<HighScoreEntry>()
@@ -133,10 +132,14 @@ public class LeaderBoard : MonoBehaviour
             return;
         }
         //PlayerScore to be dynamically set from the game
-        //int playerScore = GameManager.Instance.scoreText;
-        int playerScore = 7987750; // Temp Hard coded user score which should be the actual score of the player
+        //int playerScore = 7987750; // Temp Hard coded user score which should be the actual score of the player
+        int playerScore = GameManager.Instance.score;
         AddToLeaderboard(playerName, playerScore);
         DisplayUserScore(playerScore);
+
+        //Hide the InputField and SubmitButton after the player submits their name
+        nameInputField.gameObject.SetActive(false);
+        submitButton.gameObject.SetActive(false);
     }
 
     //Add a new high score entry to the list
@@ -160,6 +163,30 @@ public class LeaderBoard : MonoBehaviour
             score.color = Color.red;
         }
       }
+
+    //Check if the player score is a high score
+    private bool IsNewHighScore(int playerScore)
+    {
+        //Check if the high score list has fewer than 10 entries,its a new high score
+        if (highScoreEntryList.Count < 10)
+        {
+            return true;
+        }
+        //Otherwise, Compare aginst the lowest high score
+        return playerScore > highScoreEntryList[^1].score;
+    }
+
+    //Called when the game ends and the final score is known
+    public void GameOver(int playerScore)
+    {
+        //Check if the player score is a high score
+        if (IsNewHighScore(playerScore))
+        {
+            //Show the InputField and SubmitButton
+            nameInputField.gameObject.SetActive(true);
+            submitButton.gameObject.SetActive(true);
+        }
+    }
 
     //Represents a single high score entry
     private class HighScoreEntry
