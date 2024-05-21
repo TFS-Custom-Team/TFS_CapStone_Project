@@ -163,12 +163,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a649e3486fb9544d9f3afc78b36027c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 6697022477495401355}
+  scoreText: {fileID: 0}
   timeText: {fileID: 331338461}
   waveCountText: {fileID: 1905915095}
+  score: 0
   waveManager: {fileID: 1788536089}
   layoutLoader: {fileID: 582619990}
-
 --- !u!4 &476864883
 Transform:
   m_ObjectHideFlags: 0
@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 1554233949}
   m_Layer: 0
   m_Name: Tilemap
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -100,6 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77b04ab2b6523d3458d5c5130cce9ad0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  redLaser: {fileID: 2100000, guid: 4289390bb04ba694ab7a44702e12054e, type: 2}
+  blueLaser: {fileID: 2100000, guid: 5d470a7a1b7873e4fa55fa16bc14926a, type: 2}
+  greenLaser: {fileID: 2100000, guid: c5c7ebfc6df70864ba044cda96af472c, type: 2}
+  blackLaser: {fileID: 2100000, guid: 063610829f3825a4aa722a68eef338c3, type: 2}
   color: 0
 --- !u!50 &6137370066981749670
 Rigidbody2D:
