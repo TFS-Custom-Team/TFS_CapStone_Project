@@ -172,7 +172,7 @@ public class ColorSwitching : MonoBehaviour
             if(currColor == collision.GetComponent<Projectile>().color)
             {
                 collision.GetComponent<Projectile>().Bounce();
-
+                    GameManager.Instance.score += 5;               
             }
             else
             {

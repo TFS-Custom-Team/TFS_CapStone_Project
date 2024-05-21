@@ -2,10 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine;
+
+using Unity.VisualScripting;
+
 using UnityEngine.SceneManagement;
+
 
 public class Health : MonoBehaviour
 {
+    public GameObject health1;
+    public GameObject health2;
+    public GameObject health3;
+    public int hearts = 3;
+
     public int health = 50;
     private int maxHealth;
     public int damageTaken = 0;
@@ -48,7 +57,25 @@ public class Health : MonoBehaviour
                 if (hitInvulnerability == false || (hitInvulnerability == false && ownColour != projectileColour))
                 {
                     takeDamage();
+                    switch (hearts)
+                    {
+                        case 1:
+                            hearts--;
+                            health3.SetActive(false);
+                            break;   
+                        case 2:
+                            hearts--;
+                            health2.SetActive(false);
+                            break;
+                            case 3:
+                            hearts--;
+                            health1.SetActive(false); 
+                            break;
+                    }
+
+
                     AudioSource.PlayClipAtPoint(clip, transform.position, 1f);
+
                     hitInvulnerability = true;
                     timer = 0;
                 } else

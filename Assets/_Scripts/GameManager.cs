@@ -22,21 +22,21 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         //Find the scoreText in the scene
-        scoreText = GameObject.Find("Score")?.GetComponent<TextMeshProUGUI>();
+        scoreText = GameObject.Find("ScoreTxt")?.GetComponent<TextMeshProUGUI>();
         if (scoreText == null)
         {
             Debug.LogError("Score is not assigned.");
         }
 
         //Find the timeText in the scene
-        timeText = GameObject.Find("Time")?.GetComponent<TextMeshProUGUI>();
+        timeText = GameObject.Find("TimeTxt")?.GetComponent<TextMeshProUGUI>();
         if (timeText == null)
         {
             Debug.LogError("Time is not assigned.");
         }
 
         //Find the waveCountText in the scene
-        waveCountText = GameObject.Find("WaveCount")?.GetComponent<TextMeshProUGUI>();
+        waveCountText = GameObject.Find("WaveTxt")?.GetComponent<TextMeshProUGUI>();
         if (waveCountText == null)
         {
             Debug.LogError("WaveCount is not assigned.");
@@ -74,19 +74,27 @@ public class GameManager : MonoBehaviour
         //update the elasped time
         elapsedTime += Time.deltaTime;
         //update GUI
-/*        UpdateGUI();*/
+        UpdateGUI();
     }
 
     //function for updating the GUI 
     private void UpdateGUI()
     {
+        // Update the score text
         scoreText.text = "Score: " + score;
-        //timeText.text = "Time: " + think a mathf logic is needed here, just not sure how yet.
+
+        // Update the time text with minutes and seconds
+        int minutes = Mathf.FloorToInt(elapsedTime / 60F);
+        int seconds = Mathf.FloorToInt(elapsedTime % 60F);
+        timeText.text = string.Format("Time: {0:00}:{1:00}", minutes, seconds);
+
+        // Update the wave count text
         waveCountText.text = "Wave: " + waveCount;
     }
     //function to handle wave started and update this in the GUI
     public void BeginNewWave() {
         layoutLoader.Loadlevel();
 		waveManager.StartNextWave();
-	}
+        waveCount++;
+    }
 }
