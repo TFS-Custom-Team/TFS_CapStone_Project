@@ -58,7 +58,7 @@ public class pointAndShoot : MonoBehaviour
                     GameObject projectile = Instantiate(projectilePrefab, ownPos, Quaternion.identity);
  
                     //projectile.GetComponent<projectilePlaceholderScript>().colour = gameObject.GetComponent<enemyPlaceholderScript>().colour;
-                    projectile.GetComponent<Projectile>().shoot(transform.up, 1, 1, col, gameObject, ownPos);
+                    projectile.GetComponent<Projectile>().shoot(transform.up, 3, 1, col, gameObject, ownPos);
                 }
             }
         }

@@ -57,7 +57,7 @@ public class WaveManager : MonoBehaviour
         {
             //calls the spawnenemy function and then waits for the spawn delay seconds before spawning the next enemy
             SpawnEnemy();
-            yield return new WaitForSeconds(spawnDelay);
+            yield return new WaitForSeconds(spawnDelay*((float)Math.Pow(0.9, (double)currentWave)));
         }
     }
 

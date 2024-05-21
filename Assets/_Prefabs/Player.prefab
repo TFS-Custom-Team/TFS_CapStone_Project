@@ -192,4 +192,8 @@ MonoBehaviour:
   health: 3
   damageTaken: 0
   hitInvulnerabilityTime: 2
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  clip: {fileID: 8300000, guid: 33bbf3a1085d21d4593734c86791b306, type: 3}
   noHealthCap: 0

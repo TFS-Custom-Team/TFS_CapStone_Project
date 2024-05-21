@@ -13,10 +13,17 @@ public class Projectile : MonoBehaviour
     float speed = 1;
     float size = 1;
     float laserWidth = 0.4f;
+    public Material redLaser;
+    public Material blueLaser;
+    public Material greenLaser;
+    public Material blackLaser;
+
+    [SerializeField] private AudioClip bounceSound;
+    private AudioSource audioSource;
     //Tracks reference to the enemy that spawned this projectile
     GameObject enemy;
     //Tracks the color of the projectile
-    public ColorSwitching.Colors color = ColorSwitching.Colors.Blank;
+    public ColorSwitching.Colors color;
 
     Rigidbody2D rb;
     SpriteRenderer sr;
@@ -38,8 +45,10 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         lr = GetComponent<LineRenderer>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = bounceSound;
 
-
+        
     }
 
     // Update is called once per frame
@@ -97,6 +106,7 @@ public class Projectile : MonoBehaviour
     public void Bounce()
     {
         Debug.Log("Bounce Ran");
+        audioSource.Play();
         //Spawn Beam
         //Gets the points of the projectile on collision and the enemy to draw a laser between
         var points = new Vector3[2];
@@ -143,16 +153,16 @@ public class Projectile : MonoBehaviour
         switch (color)
         {
             case Colors.Red:
-                lr.colorGradient = redGrad;
+                lr.material = redLaser;
                 break;
             case Colors.Green:
-                lr.colorGradient = greenGrad;
+                lr.material = greenLaser;
                 break;
             case Colors.Blue:
-                lr.colorGradient = blueGrad;
+                lr.material = blueLaser;
                 break;
             case Colors.Black:
-                lr.colorGradient = blackGrad;
+                lr.material = blackLaser;
                 break;
         }
 
