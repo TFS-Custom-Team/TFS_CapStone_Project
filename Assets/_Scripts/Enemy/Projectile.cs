@@ -13,10 +13,14 @@ public class Projectile : MonoBehaviour
     float speed = 1;
     float size = 1;
     float laserWidth = 0.4f;
+    public Material redLaser;
+    public Material blueLaser;
+    public Material greenLaser;
+    public Material blackLaser;
     //Tracks reference to the enemy that spawned this projectile
     GameObject enemy;
     //Tracks the color of the projectile
-    public ColorSwitching.Colors color = ColorSwitching.Colors.Blank;
+    public ColorSwitching.Colors color;
 
     Rigidbody2D rb;
     SpriteRenderer sr;
@@ -39,7 +43,7 @@ public class Projectile : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         lr = GetComponent<LineRenderer>();
 
-
+        
     }
 
     // Update is called once per frame
@@ -143,16 +147,16 @@ public class Projectile : MonoBehaviour
         switch (color)
         {
             case Colors.Red:
-                lr.colorGradient = redGrad;
+                lr.material = redLaser;
                 break;
             case Colors.Green:
-                lr.colorGradient = greenGrad;
+                lr.material = greenLaser;
                 break;
             case Colors.Blue:
-                lr.colorGradient = blueGrad;
+                lr.material = blueLaser;
                 break;
             case Colors.Black:
-                lr.colorGradient = blackGrad;
+                lr.material = blackLaser;
                 break;
         }
 

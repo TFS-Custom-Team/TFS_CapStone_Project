@@ -103,6 +103,9 @@ MonoBehaviour:
   health: 1
   damageTaken: 0
   hitInvulnerabilityTime: 2
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
   noHealthCap: 0
 --- !u!61 &5194374038866171887
 BoxCollider2D:
@@ -178,5 +181,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 3554163622556761896, guid: 29cab23f85c894b44a800518529ea6ac, type: 3}
-  shootingCooldown: 5
+  shootingCooldown: 3
   col: 0
