@@ -17,6 +17,9 @@ public class Projectile : MonoBehaviour
     public Material blueLaser;
     public Material greenLaser;
     public Material blackLaser;
+
+    [SerializeField] private AudioClip bounceSound;
+    private AudioSource audioSource;
     //Tracks reference to the enemy that spawned this projectile
     GameObject enemy;
     //Tracks the color of the projectile
@@ -42,6 +45,8 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         lr = GetComponent<LineRenderer>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = bounceSound;
 
         
     }
@@ -101,6 +106,7 @@ public class Projectile : MonoBehaviour
     public void Bounce()
     {
         Debug.Log("Bounce Ran");
+        audioSource.Play();
         //Spawn Beam
         //Gets the points of the projectile on collision and the enemy to draw a laser between
         var points = new Vector3[2];

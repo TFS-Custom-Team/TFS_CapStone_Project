@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class Health : MonoBehaviour
     public float hitInvulnerabilityTime = 2;
     public UnityEvent onDeath;
     private float timer = 0;
+    [SerializeField] private AudioClip clip;
+
+    
 
     public bool noHealthCap = false;
     bool hitInvulnerability = false;
@@ -44,6 +48,7 @@ public class Health : MonoBehaviour
                 if (hitInvulnerability == false || (hitInvulnerability == false && ownColour != projectileColour))
                 {
                     takeDamage();
+                    AudioSource.PlayClipAtPoint(clip, transform.position, 1f);
                     hitInvulnerability = true;
                     timer = 0;
                 } else
