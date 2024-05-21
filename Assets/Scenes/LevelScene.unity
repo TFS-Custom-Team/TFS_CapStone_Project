@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &331338461 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7870084511618720011, guid: 6a594c6214726de438ab0b9e0c348c1f, type: 3}
+  m_PrefabInstance: {fileID: 6697022477495401354}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &476864881
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,11 +163,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a649e3486fb9544d9f3afc78b36027c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  timeText: {fileID: 0}
-  waveCountText: {fileID: 0}
+  scoreText: {fileID: 6697022477495401355}
+  timeText: {fileID: 331338461}
+  waveCountText: {fileID: 1905915095}
   waveManager: {fileID: 1788536089}
   layoutLoader: {fileID: 582619990}
+
 --- !u!4 &476864883
 Transform:
   m_ObjectHideFlags: 0
@@ -2583,6 +2595,17 @@ Transform:
   - {fileID: 1639910151}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1905915095 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3473900429447599934, guid: 6a594c6214726de438ab0b9e0c348c1f, type: 3}
+  m_PrefabInstance: {fileID: 6697022477495401354}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6697022477495401354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2595,10 +2618,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 538016068}
-    - target: {fileID: 3001954623171922304, guid: 6a594c6214726de438ab0b9e0c348c1f, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.00012207031
-      objectReference: {fileID: 0}
     - target: {fileID: 4343725879570174238, guid: 6a594c6214726de438ab0b9e0c348c1f, type: 3}
       propertyPath: m_Name
       value: CanvasParent
