@@ -18,8 +18,8 @@ public class TilemapLayoutEditor : MonoBehaviour
 	public Tilemap tilemap;
 	[Tooltip("Database of Tile IDs (Does not need to be changed from \"LayoutTileData\")")]
 	public TileDatabase tileDatabase;
-    [Tooltip("Replacement tiles for random generation. Requires replacement called \"floor\" and \"wall\".")]
-    public UDictionary<string, TileBase> replacements; //For numbered tiles. Easy way to change the TileBase for temporary/editor only tiles.
+	[Tooltip("Replacement tiles for random generation. Requires replacement called \"floor\" and \"wall\".")]
+	public UDictionary<string, TileBase> replacements; //For numbered tiles. Easy way to change the TileBase for temporary/editor only tiles.
 	public TextAsset layout; //Set this with the layout you want to load in when possible.
 	public GameObject Player;
 	public WaveManager WaveManager;
@@ -29,17 +29,17 @@ public class TilemapLayoutEditor : MonoBehaviour
 /*		Loadlevel();*/
 	}
 
-    // Update is called once per frame
-    private void Update() {
-    }
-    
+	// Update is called once per frame
+	private void Update() {
+	}
+	
 	//Code for loading level.
-    public void Loadlevel() {
+	public void Loadlevel() {
 		LevelData data = JsonUtility.FromJson<LevelData>(layout.text);
 		tilemap.ClearAllTiles();
 		int x = UnityEngine.Random.Range(1, 6);
 		print(x);
-        Dictionary<int, TileBase> dict = tileDatabase.getOppositeDictionary();
+		Dictionary<int, TileBase> dict = tileDatabase.getOppositeDictionary();
 		for (int i = 0; i < data.poses.Count; i++) {
 			if ((data.tiles[i] > 0 && data.tiles[i] <= 6) && data.tiles[i] == x) {
 				tilemap.SetTile(data.poses[i], replacements["wall"]);
@@ -58,11 +58,11 @@ public class TilemapLayoutEditor : MonoBehaviour
 		}
 	}
 
-    public void Loadlevel(TextAsset layout_to_load) { 
+	public void Loadlevel(TextAsset layout_to_load) { 
 		LevelData data = JsonUtility.FromJson<LevelData>(layout_to_load.text);
 		tilemap.ClearAllTiles();
-        int x = UnityEngine.Random.Range(1,7);
-        print(x);
+		int x = UnityEngine.Random.Range(1,7);
+		print(x);
 		Dictionary<int, TileBase> dict = new Dictionary<int, TileBase>();
 		try {
 			dict = tileDatabase.getOppositeDictionary();
@@ -138,22 +138,22 @@ public class TilemapLayoutEditor : MonoBehaviour
 	}
 
 	public void Savelevel() { //ONLY AVAILABLE IN EDITOR.
-        BoundsInt bounds = tilemap.cellBounds; //How big is this level?
+		BoundsInt bounds = tilemap.cellBounds; //How big is this level?
 
-        LevelData levelData = new LevelData(); 
-        
-        for(int x = bounds.min.x; x < bounds.max.x; x++) {  //For getting all tiles in the tilemap.
+		LevelData levelData = new LevelData(); 
+		
+		for(int x = bounds.min.x; x < bounds.max.x; x++) {  //For getting all tiles in the tilemap.
 			for (int y = bounds.min.y; y < bounds.max.y; y++) {
-                TileBase temp = tilemap.GetTile(new Vector3Int(x, y, 0));
+				TileBase temp = tilemap.GetTile(new Vector3Int(x, y, 0));
 
-                if (temp != null) {
-                    levelData.tiles.Add(tileDatabase.tiles[temp]); 
-                    levelData.poses.Add(new Vector3Int(x, y, 0));
-                }
-            }
-        }
+				if (temp != null) {
+					levelData.tiles.Add(tileDatabase.tiles[temp]); 
+					levelData.poses.Add(new Vector3Int(x, y, 0));
+				}
+			}
+		}
 
-        string json = JsonUtility.ToJson(levelData,true);
+		string json = JsonUtility.ToJson(levelData,true);
 		if (layout != null)
 		{
 			var popup = LayoutOverwriteConfirmation.init(400, 250);
@@ -192,8 +192,8 @@ public class TilemapLayoutEditor : MonoBehaviour
 
 public class LevelData
 {
-    public List<int> tiles = new List<int>(); //The tiles themselves.
-    public List<Vector3Int> poses = new List<Vector3Int>(); //Positions of those tiles.
+	public List<int> tiles = new List<int>(); //The tiles themselves.
+	public List<Vector3Int> poses = new List<Vector3Int>(); //Positions of those tiles.
 }
 #if UNITY_EDITOR
 public class LayoutSaveName : EditorWindow //Do not worry about this code. There is nothing we need to modify here.
